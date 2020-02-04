@@ -35,19 +35,19 @@ print('Connected to client')
 #infinite while to wait for messages
 while True: 
     
-    #default reply
-    reply = "This is a test"
-    
     #receive data from connection input is buffersize, or maximum amount acccepted at a time
     rx_data = connection.recv(1024).decode()
-    print('I got some data, writing data to log file')
+    print('Data received, Processing...')
     
     nf.log_rx_data(rx_data, LOG_FILE)
-    nf.assign_rx_data(rx_data)    
     
     if rx_data == 'quit':
         connection.send('Terminating'.encode())
         break
     
+    reply = "Data process finished at : " + str(time.gmtime())
+
     connection.send(reply.encode())
+
+    
 connection.close() #Close Connecions
